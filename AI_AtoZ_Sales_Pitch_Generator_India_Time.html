@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AI AtoZ Sales Pitch Generator</title>
+<style>
+:root{--navy:#10132d;--navy2:#171b3d;--purple:#7c5cff;--blue:#4f8cff;--ink:#182039;--muted:#69738c;--line:#e7eaf3;--bg:#f5f7fc;--white:#fff;--green:#12805c}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:var(--bg)}
+button,input,select,textarea{font:inherit}button{cursor:pointer}
+.nav{height:76px;background:#11142f;color:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 max(5vw,22px);border-bottom:1px solid #ffffff18}
+.brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:-.3px}.logo{width:39px;height:39px;border-radius:12px;background:linear-gradient(135deg,#9c7bff,#4d91ff);display:grid;place-items:center;font-size:15px;box-shadow:0 8px 24px #6b62ff44}.brand small{display:block;color:#aeb5d2;font-weight:500;font-size:11px;letter-spacing:1.7px;margin-top:2px}
+.nav-right{font-size:13px;color:#c6cbe1;display:flex;align-items:center;gap:9px}.online{width:8px;height:8px;border-radius:50%;background:#39dba1;box-shadow:0 0 0 4px #39dba122}
+.hero{background:radial-gradient(ellipse at 80% 10%,#40358b 0%,transparent 36%),linear-gradient(125deg,#11142f 0%,#191b46 58%,#24215a 100%);color:#fff;padding:68px max(5vw,22px) 105px;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;width:420px;height:420px;border:1px solid #ffffff12;border-radius:50%;right:-100px;bottom:-300px;box-shadow:0 0 0 55px #ffffff06,0 0 0 110px #ffffff04}
+.hero-inner{max-width:1180px;margin:auto;position:relative;z-index:1}.eyebrow{display:inline-flex;align-items:center;gap:8px;border:1px solid #ffffff2c;border-radius:100px;padding:8px 13px;color:#d9d8ff;background:#ffffff0b;font-size:12px;font-weight:700;letter-spacing:.7px;text-transform:uppercase}.spark{color:#b8a6ff}
+h1{font-size:clamp(38px,5vw,62px);line-height:1.06;letter-spacing:-2.5px;max-width:760px;margin:22px 0 18px}.gradient-text{background:linear-gradient(90deg,#b7a1ff,#77c4ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:#c7cbe4;line-height:1.75;font-size:17px;max-width:670px;margin:0 0 28px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap}.btn{border:0;border-radius:12px;padding:13px 18px;font-weight:750;font-size:13px;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:.18s ease}.btn:hover{transform:translateY(-1px)}.btn-primary{background:linear-gradient(110deg,#8a67ff,#4d8cff);color:#fff;box-shadow:0 9px 24px #6f62ff40}.btn-secondary{background:#ffffff12;color:#fff;border:1px solid #ffffff2a}.btn-light{background:#f2f4fa;color:#323a54;border:1px solid #e5e8f1}.btn-small{padding:9px 12px;border-radius:9px;font-size:12px}.hero-stats{display:flex;gap:30px;flex-wrap:wrap;margin-top:37px;color:#c5c9e0;font-size:12px}.hero-stats span{display:flex;gap:8px;align-items:center}.hero-stats b{color:#fff}
+main{max-width:1180px;margin:-55px auto 0;padding:0 22px 70px;position:relative;z-index:2}.panel{background:#fff;border:1px solid #e8eaf4;border-radius:20px;box-shadow:0 18px 50px #202b5510}.form-panel{padding:28px}.section-head{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:25px}.section-head h2{font-size:21px;letter-spacing:-.5px;margin:0 0 7px}.section-head p{margin:0;color:var(--muted);font-size:13px;line-height:1.6}.step{font-size:11px;color:#6e55dc;background:#f1edff;padding:7px 10px;border-radius:8px;font-weight:800;white-space:nowrap}
+.form-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.field{display:flex;flex-direction:column;gap:8px}.field label{font-size:12px;font-weight:750;color:#39425b}.required{color:#e35e7d}.field input,.field select{width:100%;border:1px solid #dfe4ef;background:#fbfcff;border-radius:10px;padding:12px 13px;outline:none;color:#202943;font-size:13px;min-height:44px}.field input:focus,.field select:focus{border-color:#8b78f8;box-shadow:0 0 0 3px #8b78f81a}.hint{font-size:11px;color:#8790a6}.form-bottom{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;margin-top:23px;padding-top:20px;border-top:1px solid #eef0f6}.privacy{font-size:12px;color:#7b849b;display:flex;gap:7px;align-items:center}.notice{display:none;padding:12px 14px;border-radius:10px;margin-top:14px;font-size:13px}.notice.error{display:block;background:#fff0f1;color:#a42e47;border:1px solid #ffd7de}.notice.success{display:block;background:#eafaf3;color:#14724f;border:1px solid #c8f0df}
+.results{margin-top:36px;scroll-margin-top:20px}.results-top{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;margin-bottom:18px;flex-wrap:wrap}.results-top h2{font-size:25px;letter-spacing:-.8px;margin:0 0 7px}.results-top p{font-size:13px;color:var(--muted);margin:0}.results-actions{display:flex;gap:8px;flex-wrap:wrap}.pitch-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.pitch-card{background:#fff;border:1px solid #e5e8f2;border-radius:17px;overflow:hidden;box-shadow:0 10px 28px #202b5508;display:flex;flex-direction:column;min-width:0}.card-top{padding:18px 18px 14px;border-bottom:1px solid #eff1f7;display:flex;align-items:center;justify-content:space-between;gap:10px}.card-title{display:flex;align-items:center;gap:10px;font-weight:800;font-size:14px}.card-icon{width:34px;height:34px;display:grid;place-items:center;border-radius:10px;font-size:16px}.purple{background:#f0ebff;color:#7554e8}.blue{background:#e8f3ff;color:#3475d9}.green{background:#e6f8f0;color:#16815c}.tag{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:#7a849c}.card-content{padding:16px 18px;display:flex;flex-direction:column;gap:12px;flex:1}.pitch-text{width:100%;min-height:340px;resize:vertical;border:1px solid transparent;border-radius:9px;padding:10px 8px;color:#47516b;font-size:12px;line-height:1.75;background:#fcfcff;outline:none}.pitch-text:focus{border-color:#c7baff;background:#fff}.counts{display:flex;justify-content:space-between;font-size:10px;color:#9299ab;padding:0 2px}.card-actions{padding:0 18px 18px;display:grid;grid-template-columns:1fr 1fr;gap:8px}.card-actions .btn{font-size:11px;padding:10px 8px}.card-actions .btn:first-child{grid-column:span 2}.empty{padding:32px;text-align:center;color:#7d879e;font-size:13px;background:#fff;border:1px dashed #dce1ee;border-radius:16px}.empty-icon{width:48px;height:48px;margin:0 auto 12px;border-radius:15px;background:#f0edff;display:grid;place-items:center;font-size:22px}.how{margin-top:45px}.how h2{font-size:22px;margin:0 0 8px}.how>p{font-size:13px;color:var(--muted);margin:0 0 20px}.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.step-card{background:#fff;border:1px solid #e7eaf3;border-radius:15px;padding:20px}.step-num{width:34px;height:34px;border-radius:10px;background:#f0edff;color:#7656e9;display:grid;place-items:center;font-weight:850;font-size:13px;margin-bottom:15px}.step-card h3{font-size:13px;margin:0 0 7px}.step-card p{font-size:12px;color:#778198;line-height:1.6;margin:0}
+footer{background:#11142f;color:#fff;padding:28px max(5vw,22px);display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;font-size:12px}footer .muted{color:#aeb5d2;margin-top:5px}footer a{color:#c8bbff;text-decoration:none}.toast{position:fixed;right:22px;bottom:22px;z-index:10;background:#15203a;color:white;padding:13px 17px;border-radius:12px;box-shadow:0 10px 30px #10132d44;font-size:13px;opacity:0;transform:translateY(12px);pointer-events:none;transition:.22s}.toast.show{opacity:1;transform:translateY(0)}.hidden{display:none!important}
+@media(max-width:950px){.pitch-grid{grid-template-columns:1fr}.pitch-text{min-height:240px}.form-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.steps{grid-template-columns:repeat(2,1fr)}.card-actions{grid-template-columns:repeat(3,1fr)}.card-actions .btn:first-child{grid-column:auto}}
+@media(max-width:600px){.nav{height:66px}.nav-right{font-size:11px}.hero{padding-top:48px;padding-bottom:85px}h1{letter-spacing:-1.5px}.hero p{font-size:15px}.form-panel{padding:20px 16px}.form-grid{grid-template-columns:1fr}.section-head{margin-bottom:20px}.form-bottom{align-items:stretch}.form-bottom .btn{width:100%}.steps{grid-template-columns:1fr}.results-top h2{font-size:22px}.card-actions{grid-template-columns:1fr 1fr}.card-actions .btn:first-child{grid-column:span 2}main{padding-left:14px;padding-right:14px}.hero-stats{gap:13px}}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div class="brand"><div class="logo">AI</div><div>AI AtoZ<small>SALES ENABLEMENT</small></div></div>
+  <div class="nav-right"><span class="online"></span> Sales workspace <span style="opacity:.4">·</span> <b>T.MANIDEEP</b></div>
+</nav>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow"><span class="spark">✦</span> SMARTER SALES. PERSONALIZED OUTREACH.</div>
+    <h1>Create Personalized<br><span class="gradient-text">Sales Pitches in Seconds</span></h1>
+    <p>Enter your prospect's details, choose an AI AtoZ course, and generate a personalized call script, email pitch, and WhatsApp message—all in one place.</p>
+    <div class="hero-actions">
+      <button class="btn btn-primary" onclick="document.getElementById('lead-form').scrollIntoView({behavior:'smooth'})">✦ Generate My Sales Pitches <span>→</span></button>
+      <button class="btn btn-secondary" onclick="document.getElementById('courses').scrollIntoView({behavior:'smooth'})">Explore Courses ↓</button>
+    </div>
+    <div class="hero-stats"><span>✓ <b>3 ready-to-use pitches</b></span><span>✓ <b>Personalized messaging</b></span><span>✓ <b>One-click copy</b></span></div>
+  </div>
+</header>
+<main>
+  <section class="panel form-panel" id="lead-form">
+    <div class="section-head"><div><h2>Let's personalize your pitch</h2><p>Add the lead details below. Your messages will be tailored to their interests.</p></div><span class="step">STEP 01 / 02</span></div>
+    <form id="pitch-form">
+      <div class="form-grid">
+        <div class="field"><label for="customerName">Customer name <span class="required">*</span></label><input id="customerName" name="customerName" placeholder="e.g. Priya Sharma" maxlength="100" required autocomplete="name"/><span class="hint">Used to personalize every message</span></div>
+        <div class="field"><label for="customerEmail">Customer email</label><input id="customerEmail" name="customerEmail" type="email" placeholder="name@example.com" autocomplete="email"/></div>
+        <div class="field"><label for="customerPhone">Customer phone number</label><input id="customerPhone" name="customerPhone" type="tel" placeholder="e.g. 9876543210" autocomplete="tel"/><span class="hint">Include country code for WhatsApp</span></div>
+        <div class="field"><label for="course">Select course <span class="required">*</span></label><select id="course" name="course" required><option value="">Choose a course</option><option>LLM Overview</option><option>AI Learning Roadmap</option><option>AI Foundation Course</option><option>Prompt Engineering Phase 1</option><option>Prompt Engineering Phase 2</option><option>Vibe Coding Course</option><option>AI Filmmaking Course</option><option>All Courses / Complete AI Learning Program</option></select></div>
+        <div class="field"><label for="interest">Customer interest</label><select id="interest"><option>Beginner in AI</option><option>Student</option><option>Working Professional</option><option>Business Owner</option><option>Content Creator</option><option>Developer</option><option>Other</option></select></div>
+        <div class="field"><label for="tone">Pitch tone</label><select id="tone"><option>Professional</option><option>Friendly</option><option>Persuasive</option><option>Consultative</option></select></div>
+      </div>
+      <div id="form-notice" class="notice" role="alert"></div>
+      <div class="form-bottom"><span class="privacy">♧ Generated locally with editable templates. No API key needed.</span><div style="display:flex;gap:9px;flex-wrap:wrap"><button type="button" class="btn btn-light" id="reset-btn">↺ Reset form</button><button type="button" id="generate-btn" class="btn btn-primary">Generate Personalized Pitches <span>→</span></button></div></div>
+    </form>
+  </section>
+
+  <section class="results" id="results">
+    <div class="results-top"><div><span class="step" style="display:inline-block;margin-bottom:10px">STEP 02 / 02</span><h2>Your personalized pitches</h2><p id="result-subtitle">Complete the form to create your three ready-to-use messages.</p></div><div class="results-actions hidden" id="global-actions"><button class="btn btn-light btn-small" id="regen-all">↻ Regenerate all</button><button class="btn btn-primary btn-small" id="copy-all">▣ Copy all pitches</button></div></div>
+    <div id="empty-state" class="empty"><div class="empty-icon">✦</div><b>Your next great conversation starts here.</b><p style="margin:8px 0 0">Enter a customer name and choose a course to generate all three pitches.</p></div>
+    <div id="pitch-grid" class="pitch-grid hidden"></div>
+  </section>
+
+  <section class="how" id="courses"><h2>How it works</h2><p>From lead details to ready-to-send messaging in four simple steps.</p>
+    <div class="steps">
+      <div class="step-card"><div class="step-num">01</div><h3>Enter customer details</h3><p>Add a name and optional contact details to personalize your outreach.</p></div>
+      <div class="step-card"><div class="step-num">02</div><h3>Choose the right course</h3><p>Select the AI AtoZ program that matches your prospect's goals.</p></div>
+      <div class="step-card"><div class="step-num">03</div><h3>Generate & refine</h3><p>Get three tailored drafts. Edit the wording directly before using it.</p></div>
+      <div class="step-card"><div class="step-num">04</div><h3>Copy and connect</h3><p>Copy a message, or open WhatsApp or your email app when ready.</p></div>
+    </div>
+  </section>
+</main>
+<footer><div><div class="brand"><div class="logo">AI</div><div>AI AtoZ<small>SALES PITCH GENERATOR</small></div></div><div class="muted">Turn every lead into a meaningful conversation.</div></div><div><b>T.MANIDEEP</b><div class="muted">Senior Sales Executive · <a href="tel:9985862113">9985862113</a></div></div><div class="muted">© <span id="year"></span> AI AtoZ</div></footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+const COURSE_URL = "https://learn.aiatoz.org/learn";
+const $ = id => document.getElementById(id);
+let pitches = {call:"", email:"", whatsapp:""};
+let toastTimer;
+$("year").textContent = new Date().getFullYear();
+
+const courseInfo = {
+ "LLM Overview":"explore how large language models work, what they can do, and where they may be useful in everyday and professional settings",
+ "AI Learning Roadmap":"build a clearer learning path for exploring AI concepts, tools, and practical applications step by step",
+ "AI Foundation Course":"develop a foundation in core AI concepts and understand how AI is applied across different tasks and industries",
+ "Prompt Engineering Phase 1":"learn the fundamentals of writing clearer prompts and communicating goals to AI tools",
+ "Prompt Engineering Phase 2":"build on prompt-engineering knowledge and explore more structured ways to guide AI tools toward useful outputs",
+ "Vibe Coding Course":"explore AI-assisted coding workflows and how to turn ideas into software prototypes with the help of AI tools",
+ "AI Filmmaking Course":"explore how AI tools can support creative video and filmmaking workflows, from developing ideas to visual storytelling",
+ "All Courses / Complete AI Learning Program":"explore a broader learning journey across AI concepts, prompt engineering, AI-assisted coding, and creative AI applications"
+};
+function escapeName(s){return s.trim().replace(/\s+/g," ")}
+// Always use India Standard Time (Asia/Kolkata), regardless of the device timezone.
+function getIndianTimeGreeting(){
+ const hourText = new Intl.DateTimeFormat("en-IN", {
+   timeZone: "Asia/Kolkata", hour: "2-digit", hourCycle: "h23"
+ }).format(new Date());
+ const hour = Number(hourText);
+ if (hour >= 5 && hour < 12) return "Good Morning";
+ if (hour >= 12 && hour < 17) return "Good Afternoon";
+ return "Good Evening";
+}
+function interestLine(interest){
+ const map={
+ "Beginner in AI":"If you're just getting started, this can be an opportunity to build your understanding step by step",
+ "Student":"If you're a student, learning these concepts can help you explore AI tools and their possible uses in projects and further learning",
+ "Working Professional":"If you're a working professional, you can explore how these concepts may support your work and professional development",
+ "Business Owner":"If you run a business, you can explore ways AI concepts and tools may support workflows, planning, and productivity",
+ "Content Creator":"If you're a content creator, you can explore how AI may support idea development and creative workflows",
+ "Developer":"If you're a developer, you can explore AI concepts and workflows that may complement your existing technical skills",
+ "Other":"You can explore the concepts and consider how they may apply to your own goals"
+ };
+ return map[interest] || map.Other;
+}
+function toneIntro(tone){
+ if(tone==="Friendly") return "I wanted to reach out and share an AI learning option that might be useful for you.";
+ if(tone==="Persuasive") return "I’d love to help you explore a practical next step in your AI learning journey.";
+ if(tone==="Consultative") return "I’d first like to understand your goals and then help you assess whether this program is a good fit.";
+ return "I’m reaching out to introduce our AI learning program and see whether it aligns with your goals.";
+}
+function buildPitches(){
+ const name=escapeName($("customerName").value);
+ const course=$("course").value;
+ const interest=$("interest").value;
+ const tone=$("tone").value;
+ const overview=courseInfo[course] || "explore AI concepts and their practical applications";
+ const relevant=interestLine(interest);
+ const intro=toneIntro(tone);
+ const greeting=getIndianTimeGreeting();
+ pitches.call=`Hello ${name}, ${greeting}!\n\nMy name is Abhishek, and I am a Senior Sales Executive at AI AtoZ. Is this a good time for a quick conversation?\n\n${intro}\n\nI’d like to introduce our ${course} program. It is intended to help learners ${overview}.\n\n${relevant}. I’d be happy to understand what you want to achieve and explain the program details so you can decide whether it fits your needs.\n\nMay I know what your main goal is for learning about AI—career development, your studies, business, or personal projects?\n\nYou can also review the program and enrollment details here: ${COURSE_URL}\n\nWould you be available for a brief discussion? Thank you for your time, ${name}. Have a great day!\n\nT.MANIDEEP\nSenior Sales Executive | AI AtoZ\n9985862113`;
+ pitches.email=`Subject: ${name}, Explore ${course} with AI AtoZ\n\nDear ${name},\n\n${greeting} from AI AtoZ!\n\nI am T.MANIDEEP, a Senior Sales Executive at AI AtoZ. ${intro}\n\nOur ${course} program is designed to help learners ${overview}. ${relevant}. Depending on your goals, it may be a useful opportunity to explore AI concepts and how they can be applied.\n\nI would be happy to understand your learning objectives and guide you through the available program details. You can review the course and enrollment information using the link below:\n\n${COURSE_URL}\n\nPlease feel free to reply to this email or contact me at 9985862113 if you have any questions.\n\nThanks and regards,\nT.MANIDEEP\nSenior Sales Executive | AI AtoZ\nPhone: 9985862113`;
+ pitches.whatsapp=`${greeting}, ${name}! 👋\n\nI’m Abhishek, Senior Sales Executive at AI AtoZ.\n\n${intro}\n\nOur *${course}* program can help you ${overview}. ${relevant}.\n\n🔗 Explore the program and enrollment details:\n${COURSE_URL}\n\nWould you like me to help you understand the program and see whether it matches your goals?\n\nThanks and regards,\n*T.MANIDEEP*\nSenior Sales Executive | AI AtoZ\n📞 9985862113`;
+ renderPitches();
+}
+const cardMeta=[
+ {key:"call",title:"Call Sales Pitch",tag:"PHONE SCRIPT",icon:"☎",color:"purple",copy:"Copy Call Script"},
+ {key:"email",title:"Email Sales Pitch",tag:"EMAIL DRAFT",icon:"✉",color:"blue",copy:"Copy Email"},
+ {key:"whatsapp",title:"WhatsApp Sales Message",tag:"WHATSAPP",icon:"◉",color:"green",copy:"Copy WhatsApp Message"}
+];
+function wordCount(s){return s.trim()?s.trim().split(/\s+/).length:0}
+function renderPitches(){
+ $("empty-state").classList.add("hidden");$("pitch-grid").classList.remove("hidden");$("global-actions").classList.remove("hidden");
+ $("result-subtitle").textContent=`Personalized for ${escapeName($("customerName").value)} · ${$("course").value}`;
+ $("pitch-grid").innerHTML=cardMeta.map(c=>`<article class="pitch-card"><div class="card-top"><div class="card-title"><span class="card-icon ${c.color}">${c.icon}</span><span>${c.title}</span></div><span class="tag">${c.tag}</span></div><div class="card-content"><textarea class="pitch-text" id="text-${c.key}" aria-label="${c.title} text" spellcheck="true"></textarea><div class="counts"><span id="words-${c.key}">0 words</span><span id="chars-${c.key}">0 characters</span></div></div><div class="card-actions"><button class="btn btn-primary" data-copy="${c.key}">▣ ${c.copy}</button><button class="btn btn-light" data-regen="${c.key}">↻ Regenerate</button><button class="btn btn-light" data-open="${c.key}">${c.key==="whatsapp"?"↗ Open WhatsApp":c.key==="email"?"↗ Open Email":"▣ Copy script"}</button></div></article>`).join("");
+ cardMeta.forEach(c=>{const area=$("text-"+c.key);area.value=pitches[c.key];area.addEventListener("input",()=>{pitches[c.key]=area.value;updateCounts(c.key)});updateCounts(c.key)});
+ $("pitch-grid").querySelectorAll("[data-copy]").forEach(b=>b.addEventListener("click",()=>copyPitch(b.dataset.copy,b)));
+ $("pitch-grid").querySelectorAll("[data-regen]").forEach(b=>b.addEventListener("click",()=>{const old=pitches[b.dataset.regen];buildPitches();showToast("Pitch refreshed.");}));
+ $("pitch-grid").querySelectorAll("[data-open]").forEach(b=>b.addEventListener("click",()=>openTarget(b.dataset.open)));
+}
+function updateCounts(key){const val=$("text-"+key).value;$("words-"+key).textContent=wordCount(val)+" words";$("chars-"+key).textContent=val.length+" characters";}
+function showToast(msg){const t=$("toast");t.textContent=msg;t.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove("show"),2600)}
+async function copyText(text, key){
+  // Try the modern clipboard API first (works on HTTPS / localhost).
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+  } catch (err) {
+    // Continue to the compatibility fallback below.
+  }
+
+  // Legacy fallback for browsers or locally opened HTML files.
+  let helper;
+  try {
+    helper = document.createElement("textarea");
+    helper.value = text;
+    helper.setAttribute("readonly", "");
+    helper.style.position = "fixed";
+    helper.style.left = "-9999px";
+    helper.style.top = "0";
+    document.body.appendChild(helper);
+    helper.focus();
+    helper.select();
+    helper.setSelectionRange(0, helper.value.length);
+    if (document.execCommand && document.execCommand("copy")) return true;
+  } catch (err) {
+    // If browser security blocks clipboard access, keep the pitch recoverable.
+  } finally {
+    if (helper && helper.parentNode) helper.parentNode.removeChild(helper);
+  }
+
+  // Last-resort manual-copy dialog instead of silently failing.
+  window.prompt("Automatic copy was blocked by your browser. Press Ctrl+C (or Cmd+C), then Enter:", text);
+  showToast("If the copy dialog opened, use Ctrl+C or Cmd+C to copy the pitch.");
+  return false;
+}
+async function copyPitch(key,button){
+  const area = $("text-" + key);
+  const text = area ? area.value : (pitches[key] || "");
+  const ok = await copyText(text, key);
+  if(ok){
+    const original = button ? button.textContent : "";
+    if(button) button.textContent = "✓ Copied!";
+    showToast("Pitch copied to clipboard.");
+    setTimeout(()=>{if(button && button.isConnected) button.textContent=original},1700);
+  }
+}
+$("copy-all").addEventListener("click",async()=>{const all=`CALL SALES PITCH\n\n${$("text-call")?.value || pitches.call}\n\n${"=".repeat(36)}\n\nEMAIL SALES PITCH\n\n${$("text-email")?.value || pitches.email}\n\n${"=".repeat(36)}\n\nWHATSAPP SALES MESSAGE\n\n${$("text-whatsapp")?.value || pitches.whatsapp}`;const ok=await copyText(all);if(ok)showToast("All three pitches copied.");});
+$("regen-all").addEventListener("click",()=>{buildPitches();showToast("All pitches regenerated.");});
+function openTarget(key){
+ if(key==="call"){copyPitch("call", $("pitch-grid").querySelector('[data-copy="call"]'));return}
+ if(key==="whatsapp"){
+   const raw=$("customerPhone").value.trim();const phone=raw.replace(/[^\d]/g,"");
+   if(!phone){showToast("Add the customer's phone number first.");$("customerPhone").focus();return}
+   if(phone.length<10||phone.length>15){showToast("Please check the phone number and country code.");$("customerPhone").focus();return}
+   window.open("https://wa.me/"+phone+"?text="+encodeURIComponent(pitches.whatsapp),"_blank","noopener,noreferrer");
+ }else{
+   const email=$("customerEmail").value.trim();
+   const subject=pitches.email.split("\n")[0].replace(/^Subject:\s*/,"");
+   const body=pitches.email.split("\n").slice(2).join("\n");
+   window.location.href="mailto:"+encodeURIComponent(email)+"?subject="+encodeURIComponent(subject)+"&body="+encodeURIComponent(body);
+ }
+}
+function generatePersonalizedPitches(){
+  const name = escapeName($("customerName").value || "");
+  const course = $("course").value;
+  const notice = $("form-notice");
+  if (!name || !course) {
+    notice.className = "notice error";
+    notice.textContent = !name
+      ? "Please enter the customer's name."
+      : "Please select a course before generating pitches.";
+    if (!name) $("customerName").focus(); else $("course").focus();
+    return;
+  }
+  $("customerName").value = name;
+  try {
+    buildPitches();
+    notice.className = "notice success";
+    notice.textContent = "Your personalized pitches are ready. You can edit any message before copying.";
+    $("results").scrollIntoView({behavior:"smooth", block:"start"});
+    showToast("Three personalized pitches generated.");
+  } catch (error) {
+    console.error("Pitch generation failed:", error);
+    notice.className = "notice error";
+    notice.textContent = "Something went wrong while generating pitches. Please refresh the page and try again.";
+  }
+}
+$("generate-btn").addEventListener("click", generatePersonalizedPitches);
+$("pitch-form").addEventListener("submit", e => {
+  e.preventDefault();
+  generatePersonalizedPitches();
+});
+$("reset-btn").addEventListener("click",()=>{$("pitch-form").reset();$("form-notice").className="notice";pitches={call:"",email:"",whatsapp:""};$("pitch-grid").innerHTML="";$("pitch-grid").classList.add("hidden");$("global-actions").classList.add("hidden");$("empty-state").classList.remove("hidden");$("result-subtitle").textContent="Complete the form to create your three ready-to-use messages.";showToast("Form reset.");});
+</script>
+</body>
+</html>
